@@ -5,19 +5,5 @@
     "production": ["default"],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
-  "nxCloudId": "671a8e790c69b8469d6dbf8e",
-  "plugins": [
-    {
-      "plugin": "@nx/js/typescript",
-      "options": {
-        "typecheck": {
-          "targetName": "typecheck"
-        },
-        "build": {
-          "targetName": "build",
-          "configName": "tsconfig.lib.json"
-        }
-      }
-    }
-  ]
+  "nxCloudId": "671a94b432b1d2618fae3ab4"
 }
