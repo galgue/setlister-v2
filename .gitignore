@@ -45,3 +45,6 @@ Thumbs.db
 .next
 out
 **/vite.config.{js,ts,mjs,mts,cjs,cts}.timestamp*
+
+**/.env.local
+**/.env.*.local
