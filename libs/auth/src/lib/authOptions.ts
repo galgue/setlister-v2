@@ -1,6 +1,7 @@
 import spotifyProvider from 'next-auth/providers/spotify';
 import { env } from '@setlister/env/web';
-import { AuthOptions } from 'next-auth';
+import { AuthOptions, Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -9,4 +10,31 @@ export const authOptions: AuthOptions = {
       clientSecret: env.SPOTIFY_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    async jwt({ token, account, ...rest }) {
+      if (account && account.access_token) {
+        token.access_token = account.access_token;
+        token.provider = account.provider;
+      }
+      return token;
+    },
+    async session({ session, token, ...rest }) {
+      return {
+        ...session,
+        token,
+      };
+    },
+  },
 };
+declare module 'next-auth/jwt' {
+  interface JWT {
+    access_token: string;
+    provider: string;
+  }
+}
+
+declare module 'next-auth' {
+  interface Session {
+    token: JWT;
+  }
+}
