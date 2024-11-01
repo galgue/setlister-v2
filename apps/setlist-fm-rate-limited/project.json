@@ -1,0 +1,36 @@
+{
+  "name": "setlist-fm-rate-limited",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/setlist-fm-rate-limited/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "dep": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "esbuild --platform=node apps/setlist-fm-rate-limited/src/pqueue.ts --bundle --outfile=apps/setlist-fm-rate-limited/src/pqueue.module.js"
+          }
+        ]
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "setlist-fm-rate-limited:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "setlist-fm-rate-limited:build:development"
+        },
+        "production": {
+          "buildTarget": "setlist-fm-rate-limited:build:production"
+        }
+      }
+    }
+  }
+}
